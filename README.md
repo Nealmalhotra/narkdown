@@ -1,4 +1,4 @@
-# Notion-style Markdown for VSCode
+# Narkdown for VSCode
 
 A VSCode extension that brings Notion-like editing experience to Markdown files with intuitive slash commands.
 
@@ -140,7 +140,7 @@ Feel free to submit issues and enhancement requests!
 
 ### 0.0.1
 
-Initial release of Notion-style Markdown extension:
+Initial release of Narkdown extension:
 - Basic slash command functionality
 - Support for headers, formatting, lists, and more
 - Keyboard shortcuts and context menu integration

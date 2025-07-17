@@ -1,6 +1,6 @@
 {
-  "name": "notion-in-markdown",
-  "displayName": "Notion-style Markdown",
+  "name": "narkdown",
+  "displayName": "Narkdown",
   "description": "Bring Notion-like editing experience to Markdown files with slash commands",
   "version": "0.0.1",
   "engines": {
@@ -16,25 +16,25 @@
   "contributes": {
     "commands": [
       {
-        "command": "notion-in-markdown.showCommands",
+        "command": "narkdown.showCommands",
         "title": "Show Slash Commands",
-        "category": "Notion Markdown"
+        "category": "Narkdown"
       },
       {
-        "command": "notion-in-markdown.toggleTask",
+        "command": "narkdown.toggleTask",
         "title": "Toggle Task Completion",
-        "category": "Notion Markdown"
+        "category": "Narkdown"
       }
     ],
     "keybindings": [
       {
-        "command": "notion-in-markdown.showCommands",
+        "command": "narkdown.showCommands",
         "key": "ctrl+/",
         "mac": "cmd+/",
         "when": "editorTextFocus && resourceExtname == .md"
       },
       {
-        "command": "notion-in-markdown.toggleTask",
+        "command": "narkdown.toggleTask",
         "key": "ctrl+shift+c",
         "mac": "cmd+shift+c",
         "when": "editorTextFocus && resourceExtname == .md"
@@ -43,17 +43,21 @@
     "menus": {
       "editor/context": [
         {
-          "command": "notion-in-markdown.showCommands",
+          "command": "narkdown.showCommands",
           "when": "resourceExtname == .md",
           "group": "1_modification"
         },
         {
-          "command": "notion-in-markdown.toggleTask",
+          "command": "narkdown.toggleTask",
           "when": "resourceExtname == .md",
           "group": "1_modification"
         }
       ]
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/narkdown/narkdown"
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -64,14 +68,15 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.102.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.102.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
-    "eslint": "^9.25.1",
-    "typescript": "^5.8.3",
     "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2"
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.25.6",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3"
   }
 }

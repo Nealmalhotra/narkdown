@@ -45,16 +45,6 @@ const slashCommands: SlashCommand[] = [
         replacement: '#### '
     },
     {
-        trigger: '/h5',
-        description: 'Header 5',
-        replacement: '##### '
-    },
-    {
-        trigger: '/h6',
-        description: 'Header 6',
-        replacement: '###### '
-    },
-    {
         trigger: '/bold',
         description: 'Bold text',
         replacement: '****'
@@ -107,7 +97,7 @@ const slashCommands: SlashCommand[] = [
 ];
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Notion-in-Markdown extension is now active!');
+    console.log('Narkdown extension is now active!');
 
     // Register completion provider for slash commands
     const completionProvider = vscode.languages.registerCompletionItemProvider(
@@ -215,7 +205,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Register command to show available slash commands
-    const showCommandsDisposable = vscode.commands.registerCommand('notion-in-markdown.showCommands', () => {
+    const showCommandsDisposable = vscode.commands.registerCommand('narkdown.showCommands', () => {
         const items = slashCommands.map(cmd => ({
             label: cmd.trigger,
             description: cmd.description
@@ -231,7 +221,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Register command to toggle task completion
-    const toggleTaskDisposable = vscode.commands.registerCommand('notion-in-markdown.toggleTask', () => {
+    const toggleTaskDisposable = vscode.commands.registerCommand('narkdown.toggleTask', () => {
         toggleTaskCompletion();
     });
 
