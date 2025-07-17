@@ -1,4 +1,5 @@
 const esbuild = require('esbuild');
+const { copy } = require('esbuild-plugin-copy');
 
 const production = process.argv.includes('--production');
 const watch = process.argv.includes('--watch');
@@ -16,9 +17,24 @@ async function main() {
     external: ['vscode'],
     logLevel: 'warning',
     plugins: [
-      /* add to the end of plugins array */
-      esbuildProblemMatcherPlugin
-    ]
+      copy({
+        assets: [
+          {
+            from: ['./src/markdownEditorInitScript.js'],
+            to: ['./'],
+          },
+          {
+            from: ['./src/slash-menu.css'],
+            to: ['./'],
+          },
+          {
+            from: ['./ckeditor5-build-markdown/**/*'],
+            to: ['./ckeditor5-build-markdown'],
+          }
+        ],
+      }),
+      esbuildProblemMatcherPlugin,
+    ],
   });
   if (watch) {
     await ctx.watch();

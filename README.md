@@ -1,6 +1,6 @@
 # Narkdown for VSCode
 
-A VSCode extension that brings Notion-like editing experience to Markdown files with intuitive slash commands.
+A VSCode extension that brings Notion-like editing experience to Markdown files with intuitive slash commands and a powerful WYSIWYG editor.
 
 ## Features
 
@@ -14,8 +14,6 @@ Transform your markdown editing with Notion-inspired slash commands! Simply type
 | `/h2` | Header 2 | `## Your text` (new line if content before) |
 | `/h3` | Header 3 | `### Your text` (new line if content before) |
 | `/h4` | Header 4 | `#### Your text` (new line if content before) |
-| `/h5` | Header 5 | `##### Your text` (new line if content before) |
-| `/h6` | Header 6 | `###### Your text` (new line if content before) |
 | `/bold` | Bold text | `**Your text**` |
 | `/italic` | Italic text | `*Your text*` |
 | `/code` | Inline code | `` `Your text` `` |
@@ -49,6 +47,36 @@ My awesome title
 ```
 
 This ensures proper document structure by keeping headers and tables as block-level elements.
+
+## 🎨 WYSIWYG Editor
+
+**NEW**: Experience markdown editing like never before with our integrated WYSIWYG (What You See Is What You Get) editor!
+
+### Features:
+- **Real-time synchronization** between markdown source and visual editor
+- **Notion-style slash commands** directly in the WYSIWYG editor  
+- **Live editing** with immediate markdown updates
+- **Rich text formatting** with visual feedback
+- **Task list** checkboxes you can click to toggle
+- **Seamless integration** with VS Code themes
+
+### How to Open WYSIWYG Editor:
+1. **Open any markdown file** in VS Code
+2. **Use keyboard shortcut**: `Ctrl+Shift+W` (Windows/Linux) or `Cmd+Shift+W` (Mac)
+3. **Or click the preview icon** in the editor title bar
+4. **Or right-click** and select "Open WYSIWYG Editor"
+
+### WYSIWYG Slash Commands:
+The WYSIWYG editor supports the same slash commands as the markdown editor:
+- Type `/` to see the command menu
+- Use arrow keys to navigate
+- Press Enter to select
+- Commands are instantly applied with visual formatting
+
+### Real-time Sync:
+- **Edit in WYSIWYG** → automatically updates the markdown file
+- **Edit in markdown** → automatically updates the WYSIWYG view  
+- **No conflicts** - both views stay perfectly synchronized
 
 ## How to Use
 
@@ -85,6 +113,10 @@ Result: # [cursor here]
 - **Keyboard Shortcut**: `Ctrl+/` (Windows/Linux) or `Cmd+/` (Mac)
 - Shows all available slash commands in a quick pick menu
 
+### WYSIWYG Editor
+- **Keyboard Shortcut**: `Ctrl+Shift+W` (Windows/Linux) or `Cmd+Shift+W` (Mac)
+- Opens the WYSIWYG editor with real-time sync
+
 ### Task Toggle
 - **Keyboard Shortcut**: `Ctrl+Shift+C` (Windows/Linux) or `Cmd+Shift+C` (Mac)
 - Quickly toggle task completion status `- [ ]` ↔ `- [x]`
@@ -93,6 +125,7 @@ Result: # [cursor here]
 Right-click in any markdown file to access:
 - Show Slash Commands
 - Toggle Task Completion
+- Open WYSIWYG Editor
 
 ## Installation
 
@@ -137,6 +170,15 @@ This extension automatically activates when you open a markdown file. No additio
 Feel free to submit issues and enhancement requests!
 
 ## Release Notes
+
+### 0.0.2
+
+Major update with WYSIWYG functionality:
+- **NEW**: Full WYSIWYG editor with real-time markdown sync
+- **NEW**: Notion-style slash commands in WYSIWYG mode  
+- **NEW**: Visual editing with immediate feedback
+- **NEW**: Clickable task list checkboxes
+- **Enhanced**: Better integration with VS Code themes
 
 ### 0.0.1
 

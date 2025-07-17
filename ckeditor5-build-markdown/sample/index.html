@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>CKEditor 5 Markdown Editor</title>
+		<link href="/sample-colors-dark.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div style="position: fixed; top: 0; right: 0; z-index: 999">
+			<button onclick="loadCKE()">load</button>
+			<button onclick="unloadCKE()">unload</button>
+		</div>
+		<div id="editor"></div>
+		<script src="/ckeditor.js"></script>
+		<script>
+			function loadCKE() {
+				console.log('Loading CKEditor5');
+				MarkdownEditor.create(document.querySelector('#editor'))
+					.then((editor) => {
+						window.editor = editor;
+
+						function readTextFile(file, callback) {
+							var rawFile = new XMLHttpRequest();
+							rawFile.open('GET', file, false);
+							rawFile.onreadystatechange = function () {
+								if (rawFile.readyState === 4) {
+									if (rawFile.status === 200 || rawFile.status == 0) {
+										var allText = rawFile.responseText;
+										callback(allText);
+									}
+								}
+							};
+							rawFile.send(null);
+						}
+
+						readTextFile('example.md', (data) => editor.setData(data));
+					})
+					.catch((error) => {
+						console.error('There was a problem initializing the editor.', error);
+					});
+			}
+
+			function unloadCKE() {
+				document.querySelector('.ck').remove();
+			}
+			loadCKE();
+		</script>
+	</body>
+</html>

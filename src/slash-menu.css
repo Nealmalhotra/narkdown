@@ -1,0 +1,351 @@
+/* Slash Menu Styles */
+.slash-menu {
+    position: absolute;
+    background-color: var(--vscode-dropdown-background, #3c3c3c);
+    border: 1px solid var(--vscode-dropdown-border, #454545);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    max-height: 300px;
+    min-width: 250px;
+    overflow-y: auto;
+    z-index: 10000;
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    padding: 8px 0;
+}
+
+.slash-menu-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.slash-menu-item:hover,
+.slash-menu-item.selected {
+    background-color: var(--vscode-list-hoverBackground, rgba(255, 255, 255, 0.1));
+}
+
+.slash-menu-item:last-child {
+    border-bottom: none;
+}
+
+.slash-menu-trigger {
+    font-weight: bold;
+    color: var(--vscode-textLink-foreground, #4fc3f7);
+    font-size: 14px;
+}
+
+.slash-menu-description {
+    font-size: 12px;
+    color: var(--vscode-descriptionForeground, #cccccc);
+    opacity: 0.8;
+}
+
+/* Force proper CKEditor layout */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+}
+
+#editor {
+    height: 100vh !important;
+    width: 100% !important;
+}
+
+/* CKEditor root container */
+.ck.ck-editor {
+    height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: var(--vscode-editor-background) !important;
+    position: relative !important;
+}
+
+/* Toolbar container at the top */
+.ck.ck-editor__top {
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    background: var(--vscode-editorWidget-background, #2d2d30) !important;
+    border-bottom: 1px solid var(--vscode-panel-border, #3c3c3c) !important;
+    order: 1 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+    position: relative !important;
+    z-index: 200 !important;
+    overflow: visible !important;
+}
+
+/* Main toolbar */
+.ck.ck-toolbar {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 10px 16px !important;
+    background: var(--vscode-editorWidget-background, #2d2d30) !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    height: auto !important;
+    min-height: 44px !important;
+    max-height: 54px !important;
+    position: relative !important;
+    z-index: 200 !important;
+}
+
+/* Toolbar items container */
+.ck.ck-toolbar .ck-toolbar__items {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    height: 100% !important;
+    gap: 3px !important;
+    overflow: visible !important;
+}
+
+/* Individual toolbar buttons */
+.ck.ck-toolbar .ck-button {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 36px !important;
+    height: 32px !important;
+    margin: 0 2px !important;
+    padding: 6px !important;
+    border-radius: 4px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+    color: var(--vscode-foreground, #cccccc) !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Button hover states */
+.ck.ck-toolbar .ck-button:hover {
+    background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1)) !important;
+    border-color: var(--vscode-focusBorder, #007acc) !important;
+}
+
+.ck.ck-toolbar .ck-button.ck-on {
+    background: var(--vscode-button-background, #0e639c) !important;
+    color: var(--vscode-button-foreground, white) !important;
+    border-color: var(--vscode-button-background, #0e639c) !important;
+}
+
+.ck.ck-toolbar .ck-button.ck-off {
+    background: var(--vscode-button-secondaryBackground, rgba(255, 255, 255, 0.1)) !important;
+    color: var(--vscode-button-secondaryForeground, #cccccc) !important;
+    border-color: var(--vscode-button-border, rgba(255, 255, 255, 0.2)) !important;
+}
+
+/* Button icons */
+.ck.ck-toolbar .ck-button .ck-icon {
+    color: inherit !important;
+    fill: currentColor !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* Button labels */
+.ck.ck-toolbar .ck-button .ck-button__label {
+    color: inherit !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+/* Dropdown buttons */
+.ck.ck-toolbar .ck-dropdown {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    min-width: auto !important;
+    height: 32px !important;
+    margin: 0 2px !important;
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+}
+
+.ck.ck-toolbar .ck-dropdown .ck-dropdown__button {
+    background: var(--vscode-button-secondaryBackground, rgba(255, 255, 255, 0.1)) !important;
+    color: var(--vscode-button-secondaryForeground, #cccccc) !important;
+    border: 1px solid var(--vscode-button-border, rgba(255, 255, 255, 0.2)) !important;
+    border-radius: 4px !important;
+    padding: 6px 12px !important;
+    min-height: 32px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 140px !important;
+}
+
+.ck.ck-toolbar .ck-dropdown .ck-dropdown__button:hover {
+    background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.15)) !important;
+    border-color: var(--vscode-focusBorder, #007acc) !important;
+}
+
+/* Dropdown panels - FIXED POSITIONING */
+.ck.ck-dropdown__panel {
+    position: fixed !important;
+    z-index: 9999 !important;
+    background: var(--vscode-dropdown-background, #3c3c3c) !important;
+    border: 1px solid var(--vscode-dropdown-border, #454545) !important;
+    border-radius: 6px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    min-width: 220px !important;
+    max-width: 300px !important;
+    max-height: 400px !important;
+    overflow-y: auto !important;
+    margin-top: 4px !important;
+    padding: 4px 0 !important;
+}
+
+/* Show dropdown when open */
+.ck.ck-dropdown.ck-dropdown_open .ck-dropdown__panel {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Hide dropdown when closed */
+.ck.ck-dropdown:not(.ck-dropdown_open) .ck-dropdown__panel {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Dropdown list items */
+.ck.ck-list {
+    background: transparent !important;
+    border: none !important;
+}
+
+.ck.ck-list .ck-list__item {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ck.ck-list .ck-list__item .ck-button {
+    width: 100% !important;
+    padding: 10px 16px !important;
+    text-align: left !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 3px !important;
+    color: var(--vscode-foreground, #cccccc) !important;
+    min-height: 36px !important;
+    justify-content: flex-start !important;
+    margin: 0 4px !important;
+    font-size: 13px !important;
+}
+
+.ck.ck-list .ck-list__item .ck-button:hover {
+    background: var(--vscode-list-hoverBackground, rgba(255, 255, 255, 0.1)) !important;
+}
+
+.ck.ck-list .ck-list__item .ck-button.ck-on {
+    background: var(--vscode-list-activeSelectionBackground, #094771) !important;
+    color: var(--vscode-list-activeSelectionForeground, white) !important;
+}
+
+.ck.ck-list .ck-list__item .ck-button .ck-button__label {
+    font-weight: 500 !important;
+}
+
+/* Heading dropdown specific fixes */
+.ck.ck-heading-dropdown .ck-dropdown__button {
+    min-width: 120px !important;
+    max-width: 160px !important;
+}
+
+/* Style different heading levels in dropdown */
+.ck.ck-list .ck-list__item .ck-button[data-value="paragraph"] .ck-button__label {
+    font-size: 13px !important;
+    font-weight: normal !important;
+}
+
+.ck.ck-list .ck-list__item .ck-button[data-value="heading1"] .ck-button__label {
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+
+.ck.ck-list .ck-list__item .ck-button[data-value="heading2"] .ck-button__label {
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+.ck.ck-list .ck-list__item .ck-button[data-value="heading3"] .ck-button__label {
+    font-size: 14px !important;
+    font-weight: bold !important;
+}
+
+/* Toolbar separators */
+.ck.ck-toolbar .ck-toolbar__separator {
+    width: 1px !important;
+    height: 24px !important;
+    background: var(--vscode-panel-border, #3c3c3c) !important;
+    margin: 0 6px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Editor main content area */
+.ck.ck-editor__main {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    order: 2 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Editor content */
+.ck.ck-editor__editable {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    padding: 20px !important;
+    background: var(--vscode-editor-background) !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/* Code block improvements */
+.ck.ck-editor__editable pre[data-language] {
+    background: var(--vscode-textCodeBlock-background, #1e1e1e) !important;
+    border: 1px solid var(--vscode-panel-border, #3c3c3c) !important;
+    border-radius: 4px !important;
+    padding: 16px !important;
+    margin: 12px 0 !important;
+    font-family: var(--vscode-editor-font-family, 'Monaco', 'Menlo', 'Ubuntu Mono', monospace) !important;
+    font-size: var(--vscode-editor-font-size, 14px) !important;
+    line-height: 1.6 !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+.ck.ck-editor__editable pre[data-language] code {
+    background: transparent !important;
+    color: var(--vscode-editor-foreground, #d4d4d4) !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+}
+
+/* Force all toolbar items to be inline */
+.ck.ck-toolbar > * {
+    position: relative !important;
+    float: none !important;
+    clear: none !important;
+} 
