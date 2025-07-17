@@ -1,0 +1,77 @@
+{
+  "name": "notion-in-markdown",
+  "displayName": "Notion-style Markdown",
+  "description": "Bring Notion-like editing experience to Markdown files with slash commands",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.102.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "notion-in-markdown.showCommands",
+        "title": "Show Slash Commands",
+        "category": "Notion Markdown"
+      },
+      {
+        "command": "notion-in-markdown.toggleTask",
+        "title": "Toggle Task Completion",
+        "category": "Notion Markdown"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "notion-in-markdown.showCommands",
+        "key": "ctrl+/",
+        "mac": "cmd+/",
+        "when": "editorTextFocus && resourceExtname == .md"
+      },
+      {
+        "command": "notion-in-markdown.toggleTask",
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c",
+        "when": "editorTextFocus && resourceExtname == .md"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "notion-in-markdown.showCommands",
+          "when": "resourceExtname == .md",
+          "group": "1_modification"
+        },
+        {
+          "command": "notion-in-markdown.toggleTask",
+          "when": "resourceExtname == .md",
+          "group": "1_modification"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.102.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
