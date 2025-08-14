@@ -81,6 +81,22 @@ function initializeNarkdown(editor) {
     let selectedSlashCommandIndex = 0;
     const slashMenu = document.getElementById('slash-menu');
     
+    // Create selection toolbar container
+    const selectionToolbar = document.createElement('div');
+    selectionToolbar.id = 'selection-toolbar';
+    selectionToolbar.className = 'selection-toolbar';
+    selectionToolbar.innerHTML = `
+        <button class="st-btn" data-action="bold" title="Bold (Ctrl+B)"><span>B</span></button>
+        <button class="st-btn" data-action="italic" title="Italic (Ctrl+I)"><span>I</span></button>
+        <button class="st-btn" data-action="code" title="Code (Ctrl+Shift+C)"><span>&lt;&gt;</span></button>
+        <div class="st-sep"></div>
+        <button class="st-btn" data-action="paragraph" title="Paragraph"><span>¶</span></button>
+        <button class="st-btn" data-action="heading1" title="Heading 1"><span>H1</span></button>
+        <button class="st-btn" data-action="heading2" title="Heading 2"><span>H2</span></button>
+        <button class="st-btn" data-action="heading3" title="Heading 3"><span>H3</span></button>
+    `;
+    document.body.appendChild(selectionToolbar);
+    
     // Handle messages sent from the extension to the webview
     window.addEventListener('message', (event) => {
         console.log('Recieved Message', { 'event.data': JSON.stringify(event.data) });
@@ -144,9 +160,11 @@ function initializeNarkdown(editor) {
         const clickedElement = event.target;
         const isDropdownButton = clickedElement.closest('.ck-dropdown__button');
         const isDropdownPanel = clickedElement.closest('.ck-dropdown__panel');
+        const isSelectionToolbar = clickedElement.closest('#selection-toolbar');
         
-        if (!isDropdownButton && !isDropdownPanel) {
+        if (!isDropdownButton && !isDropdownPanel && !isSelectionToolbar) {
             closeAllDropdowns();
+            hideSelectionToolbar();
         }
     });
     
@@ -160,6 +178,88 @@ function initializeNarkdown(editor) {
             if (dropdown) dropdown.classList.remove('ck-dropdown_open');
         });
     }
+
+    // ---------------- Selection Toolbar ----------------
+    function updateSelectionToolbarPosition() {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return;
+        const range = sel.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        if (!rect || (rect.width === 0 && rect.height === 0)) return;
+
+        const toolbar = selectionToolbar;
+        const margin = 8;
+        const toolbarWidth = toolbar.offsetWidth || 240;
+        let top = rect.top + window.scrollY - (toolbar.offsetHeight || 40) - margin;
+        let left = rect.left + window.scrollX + rect.width / 2 - toolbarWidth / 2;
+        left = Math.max(8, Math.min(left, window.innerWidth - toolbarWidth - 8));
+
+        toolbar.style.top = `${top}px`;
+        toolbar.style.left = `${left}px`;
+    }
+
+    function showSelectionToolbar() {
+        selectionToolbar.style.display = 'flex';
+        selectionToolbar.style.visibility = 'visible';
+        selectionToolbar.style.opacity = '1';
+        updateSelectionToolbarPosition();
+    }
+
+    function hideSelectionToolbar() {
+        selectionToolbar.style.display = 'none';
+    }
+
+    function shouldShowSelectionToolbar() {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+        // Ensure selection is inside editor content
+        const anchorNode = sel.anchorNode;
+        const focusNode = sel.focusNode;
+        const root = document.querySelector('.ck-editor__editable');
+        const isInside = (n) => n && root && (n === root || (n.nodeType === 1 ? n.closest('.ck-editor__editable') : n.parentElement?.closest('.ck-editor__editable')));
+        return isInside(anchorNode) && isInside(focusNode);
+    }
+
+    function maybeToggleSelectionToolbar() {
+        if (shouldShowSelectionToolbar()) {
+            showSelectionToolbar();
+        } else {
+            hideSelectionToolbar();
+        }
+    }
+
+    // Reposition on selection/scroll/resize
+    document.addEventListener('selectionchange', () => {
+        if (selectionToolbar.style.display !== 'none') updateSelectionToolbarPosition();
+        maybeToggleSelectionToolbar();
+    });
+    window.addEventListener('resize', () => hideSelectionToolbar());
+    const editableEl = document.querySelector('.ck-editor__editable');
+    if (editableEl) {
+        editableEl.addEventListener('scroll', () => {
+            if (selectionToolbar.style.display !== 'none') updateSelectionToolbarPosition();
+        }, { passive: true });
+    }
+
+    // Execute actions
+    selectionToolbar.addEventListener('click', (e) => {
+        const btn = e.target.closest('.st-btn');
+        if (!btn) return;
+        const action = btn.getAttribute('data-action');
+        try {
+            if (action === 'paragraph') {
+                editor.execute('heading', { value: 'paragraph' });
+            } else if (action?.startsWith('heading')) {
+                editor.execute('heading', { value: action });
+            } else if (action) {
+                editor.execute(action);
+            }
+            editor.editing.view.focus();
+        } catch (err) {
+            console.warn('Selection toolbar action failed', action, err);
+        }
+        maybeToggleSelectionToolbar();
+    });
     
         function handleSlashCommand() {
         if (!slashCommands || slashCommands.length === 0) {
