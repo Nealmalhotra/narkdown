@@ -23,21 +23,28 @@
             "filenamePattern": "*.md"
           }
         ],
-        "priority": "option"
+        "priority": "default"
       }
     ],
     "commands": [
       {
         "command": "markdownEditor.openCustomEditor",
-        "title": "Open with Narkdown WYSIWYG Editor"
+        "title": "Open with Narkdown WYSIWYG Editor (Default)"
       },
       {
         "command": "markdownEditor.openDefaultEditor",
-        "title": "Open with Default Editor"
+        "title": "Open with Default Text Editor"
       }
     ],
     "keybindings": [],
-    "menus": {}
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "markdownEditor.openDefaultEditor",
+          "when": "resourceExtname == .md"
+        }
+      ]
+    }
   },
   "repository": {
     "type": "git",

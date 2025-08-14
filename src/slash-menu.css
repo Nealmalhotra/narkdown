@@ -400,6 +400,69 @@ body {
     font-size: inherit !important;
 }
 
+/* -------- Readability / Markdown-like content styles -------- */
+/* Make bold text stand out more */
+.ck-content strong,
+.ck-content b {
+    font-weight: 900 !important;
+    color: #ffffff !important;
+}
+
+/* Headings hierarchy like VS Code preview */
+.ck-content h1 {
+    font-size: 1.8em !important;
+    line-height: 1.25 !important;
+    font-weight: 800 !important;
+    padding-bottom: 0.3em !important;
+    border-bottom: 1px solid var(--vscode-badge-background, #3c3c3c) !important;
+    margin-top: 1.4em !important;
+    margin-bottom: 0.6em !important;
+}
+
+.ck-content h2 {
+    font-size: 1.5em !important;
+    line-height: 1.35 !important;
+    font-weight: 700 !important;
+    padding-bottom: 0.25em !important;
+    border-bottom: 1px solid var(--vscode-badge-background, #3c3c3c) !important;
+    margin-top: 1.2em !important;
+    margin-bottom: 0.5em !important;
+}
+
+.ck-content h3 {
+    font-size: 1.25em !important;
+    line-height: 1.4 !important;
+    font-weight: 700 !important;
+    margin-top: 1em !important;
+    margin-bottom: 0.4em !important;
+}
+
+/* Improve blockquote legibility */
+.ck-content blockquote {
+    border-left: 4px solid var(--vscode-badge-background, #3c3c3c) !important;
+    color: var(--vscode-editor-foreground, #d4d4d4) !important;
+    opacity: 0.95 !important;
+}
+
+/* Emphasize inline code a bit */
+.ck-content code {
+    background: var(--vscode-editorHoverWidget-statusBarBackground, #2a2a2a) !important;
+    color: var(--vscode-textPreformat-foreground, #c7c7c7) !important;
+    padding: 0.1em 0.35em !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+}
+
+/* Paragraph spacing closer to preview */
+.ck-content p {
+    margin: 0.7em 0 !important;
+}
+
+/* Slightly dim regular paragraph text to increase contrast against strong */
+.ck-content {
+    color: rgba(230, 230, 230, 0.88) !important;
+}
+
 /* Force all toolbar items to be inline */
 .ck.ck-toolbar > * {
     position: relative !important;
