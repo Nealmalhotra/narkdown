@@ -28,9 +28,9 @@ async function main() {
             to: ['./'],
           },
           {
-            from: ['./ckeditor5-build-markdown/**/*'],
-            to: ['./ckeditor5-build-markdown'],
-          }
+            from: ['./ckeditor5-build-markdown/build/**/*'],
+            to: ['./ckeditor5-build-markdown/build'],
+          },
         ],
       }),
       esbuildProblemMatcherPlugin,

@@ -119,6 +119,9 @@ export class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
         const slashMenuCssUri = webview.asWebviewUri(
             vscode.Uri.joinPath(this.context.extensionUri, 'dist', 'slash-menu.css')
         );
+        const editorStylesUri = webview.asWebviewUri(
+            vscode.Uri.joinPath(this.context.extensionUri, 'dist', 'ckeditor5-build-markdown', 'build', 'styles.css')
+        );
 
 		// Use a nonce to only allow a specific script to be run.
 		const nonce = getNonce();
@@ -133,6 +136,7 @@ export class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
 					<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 					<title>Markdown WYSIWYG Editor</title>
                     <link href="${slashMenuCssUri}" rel="stylesheet">
+                    <link href="${editorStylesUri}" rel="stylesheet">
 				</head>
 				<body style="margin: 0; padding: 0; height: 100vh; overflow: hidden;">
 					<div id="editor" style="height: 100vh;"></div>

@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { bundler, styles } = require('@ckeditor/ckeditor5-dev-utils');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -70,6 +71,9 @@ module.exports = {
 						// additionalLanguages: 'all',
 					}),
 			  ]),
+		new MiniCssExtractPlugin({
+			filename: "styles.css"
+		}),
 		new webpack.BannerPlugin({
 			banner: bundler.getLicenseBanner(),
 			raw: true,
@@ -85,15 +89,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					{
-						loader: 'style-loader',
-						options: {
-							injectType: 'singletonStyleTag',
-							attributes: {
-								'data-cke': true,
-							},
-						},
-					},
+					MiniCssExtractPlugin.loader,
 					'css-loader',
 					{
 						loader: 'postcss-loader',

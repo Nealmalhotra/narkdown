@@ -139,8 +139,8 @@ function initializeNarkdown(editor) {
         }
     }, { priority: 'highest' });
     
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (event) => {
+    // Close dropdowns when clicking outside the dropdown or its button
+    document.addEventListener('mousedown', (event) => {
         const clickedElement = event.target;
         const isDropdownButton = clickedElement.closest('.ck-dropdown__button');
         const isDropdownPanel = clickedElement.closest('.ck-dropdown__panel');
@@ -151,13 +151,13 @@ function initializeNarkdown(editor) {
     });
     
     function closeAllDropdowns() {
-        const openDropdowns = document.querySelectorAll('.ck-dropdown_open');
-        openDropdowns.forEach(dropdown => {
-            dropdown.classList.remove('ck-dropdown_open');
-            const panel = dropdown.querySelector('.ck-dropdown__panel');
-            if (panel) {
-                panel.classList.remove('ck-dropdown__panel_visible');
-            }
+        // CKEditor toggles the visibility class on the panel itself
+        const openPanels = document.querySelectorAll('.ck-dropdown__panel.ck-dropdown__panel-visible');
+        openPanels.forEach(panel => {
+            panel.classList.remove('ck-dropdown__panel-visible');
+            // Also remove open class on ancestor dropdown if present
+            const dropdown = panel.closest('.ck-dropdown');
+            if (dropdown) dropdown.classList.remove('ck-dropdown_open');
         });
     }
     
