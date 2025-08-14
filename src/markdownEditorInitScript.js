@@ -344,9 +344,6 @@ function initializeNarkdown(editor) {
         
         console.log('Showing slash menu with commands:', filteredSlashCommands);
         slashMenuActive = true;
-        slashMenu.style.display = 'block';
-        slashMenu.style.visibility = 'visible';
-        slashMenu.style.opacity = '1';
         slashMenu.innerHTML = '';
         selectedSlashCommandIndex = 0;
 
@@ -364,7 +361,18 @@ function initializeNarkdown(editor) {
             slashMenu.appendChild(item);
         });
         
+        // Position the menu first, then show it
         updateSlashMenuPosition();
+        
+        // Only show if we successfully positioned it
+        if (slashMenu.style.top && slashMenu.style.top !== '0px') {
+            slashMenu.style.display = 'flex';
+            slashMenu.style.visibility = 'visible';
+            slashMenu.style.opacity = '1';
+        } else {
+            // If positioning failed, hide the menu
+            hideSlashMenu();
+        }
     }
     
     function hideSlashMenu() {
@@ -505,10 +513,26 @@ function initializeNarkdown(editor) {
         if (!selection || selection.rangeCount === 0) return;
         const range = selection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
-    
+        
+        // Don't show menu if we can't get a valid position
+        if (!rect || (rect.width === 0 && rect.height === 0)) {
+            hideSlashMenu();
+            return;
+        }
+
         if (!slashMenu) return;
-        slashMenu.style.top = `${rect.bottom + window.scrollY}px`;
-        slashMenu.style.left = `${rect.left + window.scrollX}px`;
+        
+        const margin = 8;
+        const toolbarHeight = 60; // Approximate toolbar height
+        let top = rect.top + window.scrollY - (slashMenu.offsetHeight || 40) - margin;
+        let left = rect.left + window.scrollX + rect.width / 2 - (slashMenu.offsetWidth || 250) / 2;
+        
+        // Ensure menu stays within viewport bounds
+        left = Math.max(8, Math.min(left, window.innerWidth - (slashMenu.offsetWidth || 250) - 8));
+        top = Math.max(toolbarHeight + margin, Math.min(top, window.innerHeight - (slashMenu.offsetHeight || 40) - margin));
+        
+        slashMenu.style.top = `${top}px`;
+        slashMenu.style.left = `${left}px`;
     }
     
     
